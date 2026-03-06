@@ -1,5 +1,6 @@
 \documentclass[12pt, dutch]{article}
 \usepackage{hyperref}
+\usepackage{graphicx}
 \hypersetup{
     colorlinks=true,
     linkcolor=black,
@@ -8,8 +9,9 @@
     pdfpagemode=FullScreen,
     }
 \urlstyle{same}
-\title{SORT1: een korte analyse van insertionsort}
+\title{SORT1: een korte analyse van Insertion Sort}
 \author{Manoah Kinnaert}
+\graphicspath{{charts/}}
 \begin{document}
 
 \begin{titlepage}
@@ -17,11 +19,11 @@
 \end{titlepage}
 \pagebreak
 \section{Korte inleiding}
-In dit (korte) verslag bespreken we een klein experimentje rond het sorteren van willekeurige reële getallen met behulp van insertionsort. Hierbij tellen we het aantal vergelijkingen tussen elementen alsook het aantal verwisselingen
-tussen elementen in de array. We gaan kijken hoe het aantal vergelijkingen en het aantal verwisselingen verandert in functie van de invoergrootte N (zijnde het aantal elementen van de array).
+In dit (korte) verslag bespreken we een klein experimentje rond het sorteren van willekeurige reële getallen met behulp van Insertion Sort. Hierbij tellen we het aantal vergelijkingen tussen elementen alsook het aantal verwisselingen
+van elementen in de array. We onderzoeken hoe het aantal vergelijkingen en het aantal verwisselingen verandert in functie van de invoergrootte N (zijnde het aantal elementen van de array).
 Belangrijk te vermelden is dat we hier vertrekken van een willekeurige permutatie van een array en niet van bijvoorbeeld een omgekeerd gesorteerde array of gesorteerde array.
-We doen dit in de hoop een idee te krijgen van hoe insertionsort zich in het gemiddelde geval zal gedragen naarmate N steeds groter wordt.
-Alle code die gebruikt is voor dit experiment is ook hier terug te vinden: \break 
+We doen dit in de hoop een idee te krijgen van hoe Insertion Sort zich in het gemiddelde geval zal gedragen naarmate N steeds groter wordt.
+Alle code die gebruikt is voor dit experiment is ook hier terug te vinden: \\\ 
 \url{https://github.com/ManoahKinnaert/Sorts}.
 
 \section{Invoergrootte en arrays}
@@ -30,23 +32,39 @@ In dit experiment zal de invoergrootte variëren van 10 elementen tot en met 100
 Dus bij iteratie 1 kijken we naar een array met 10 elementen, bij iteratie 2 naar een van 20 elementen, bij iteratie 3 naar een van 30 elementen enzovoort.
 De individuele elementen in deze array zijn floatingpoint getallen die willekeurig gekozen zijn en ieder getal in de 'range' heeft een gelijke kans om voor te komen in de array (uniforme verdeling).
 
-\section{Bevindingen en plotten}
-Voor het plotten van de bevindingen is er gebruik gemaakt van matplotlib. Er is gewoon gebruik gemaakt van lineair geschaalde assen aangezien
-er geen logaritmisch gedrag verwacht werd (zie meer in het gedeelte theorie vs praktijk). Naast het plotten van het aantal vergelijkingen en verwisselingen in het experiment zelf, is
-er ook gekozen om het theoretische aantal te plotten als referentie.
+\section{Bevindingen plotten}
+Voor het plotten van de bevindingen is er gebruik gemaakt van matplotlib. Er is gebruik gemaakt van lineair geschaalde assen aangezien
+er geen logaritmisch en/of exponentieel gedrag verwacht werd (zie meer in het gedeelte resultaten vs verwachtingen). 
+Naast het plotten van het aantal vergelijkingen en verwisselingen in het experiment zelf, 
+is er ook gekozen om het theoretische aantal te plotten als referentie.
 
-Nu wat zijn de bevindingen?
-Wel hier zie je de grafieken voor het best case geval voor insertionsort.
-Nog toe te voegen... 
-Dit best case geval van insertionsort is het geval waarbij de gegeven array al gesorteerd is.
+\par
+\begin{figure}
+  \includegraphics[width=\linewidth]{SORT1_all.png}
+  \caption{Aantal vergelijkingen en verwisselingen in functie van invoergrootte, in zowel het beste, gemiddelde als slechtste geval.}
+  \label{fig:SORT1_all}
+\end{figure} 
+Het best case geval van Insertion Sort is het geval waarbij de gegeven array al gesorteerd is.
+Uit Figuur~\ref{fig:SORT1_all} is duidelijk een lineair verband te zien tussen de invoergrootte en het aantal vergelijkingen. Eveneens zien we dat het aantal verwisselingen op 0 blijft
+onafhankelijk van de invoergrootte, wat ook logisch is aangezien de array al gesorteerd is. Insertion Sort zal namelijk twee elementen van plaats verwisselen als het element dat eerder in de array staat groter is dan het element dat later 
+in diezelfde array voorkomt. Verder kunnen we opmaken dat in het gemiddelde geval er een kwadratisch verband is tussen de invoergrootte en het aantal vergelijkingen maar ook tussen het aantal verwisselingen.
+Tot slot kunnen we opmaken dat in het slechtste geval voor insertionsort ook een kwadratisch verband is tussen de invoergrootte N en het aantal vergelijkingen en ook het aantal verwisselingen. 
+Hoewel deze grafiek sneller lijkt te stijgen dan die van het average case geval.
+~
+\section{Resultaten vs verwachtingen}
+De gemeten resultaten komen inderdaad overeen met de theoretische verwachtingen.
+Voor het best case geval verwachtten we \begin{math} \sim N - 1\end{math}  vergelijkingen en 0 verwisselingen. En dat is ook te zien op de grafiek, hoewel niet even duidelijk immers de ijking van de assen.
+Figuur~\ref{fig:SORT1_best} illustreert dit net iets beter.
+Verder zien we wel iets interessants voor het gemiddelde geval, we zien wel een kwadratische groei maar de telling lijkt soms net boven en dan weer net onder het verwachte resultaat te liggen.
+Hoe komt dit? Dit komt doordat er voor elke invoergrootte één permutatie van de array getest wordt, hierdoor kan het zijn dat het aantal tellingen soms net boven het gemiddelde aantal ligt of net eronder.
+Maar deze waarden zullen blijven oscilleren rond dit gemiddelde. Als we het gemiddelde aantal tellingen zouden nemen voor alle permutaties van een gegeven invoergrootte zouden we wel een grafiek krijgen die samenvalt met 
+~\begin{math} \sim N^2 / 4 \end{math}.
 
-De volgende grafieken vertonen het average case geval van insertionsort.
-Nog toe te voegen... 
-
-En als laatste tonen deze grafieken het worst geval van insertionsort.
-Nog toe te voegen... 
-
-
-\section{Theorie vs praktijk}
-
+Tot slot zien we bij het worst case geval dat onze telling perfect samenvalt met het verwachte gedrag, namelijk \begin{math} \sim N^2 / 2\end{math} voor het aantal vergelijkingen en 
+~\begin{math} \sim N^2 / 2 \end{math} voor het aantal verwisselingen. Het experiment bevestigt dus het theoretische gedrag.
+\begin{figure}
+  \includegraphics[width=\linewidth]{SORT1_best.png}
+  \caption{Aantal vergelijkingen en verwisselingen in functie van invoergrootte voor het beste geval.}
+  \label{fig:SORT1_best}
+\end{figure} 
 \end{document}
