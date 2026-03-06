@@ -1,4 +1,13 @@
 \documentclass[12pt, dutch]{article}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=magenta,      
+    urlcolor=blue,
+    pdfpagemode=FullScreen,
+    }
+\urlstyle{same}
 \title{SORT1: een korte analyse van insertionsort}
 \author{Manoah Kinnaert}
 \begin{document}
@@ -12,13 +21,18 @@ In dit (korte) verslag bespreken we een klein experimentje rond het sorteren van
 tussen elementen in de array. We gaan kijken hoe het aantal vergelijkingen en het aantal verwisselingen verandert in functie van de invoergrootte N (zijnde het aantal elementen van de array).
 Belangrijk te vermelden is dat we hier vertrekken van een willekeurige permutatie van een array en niet van bijvoorbeeld een omgekeerd gesorteerde array of gesorteerde array.
 We doen dit in de hoop een idee te krijgen van hoe insertionsort zich in het gemiddelde geval zal gedragen naarmate N steeds groter wordt.
+Alle code die gebruikt is voor dit experiment is ook hier terug te vinden: \break 
+\url{https://github.com/ManoahKinnaert/Sorts}.
 
 \section{Invoergrootte en arrays}
 Zoals al in de inleiding is aangehaald bedoelen we hier met de invoergrootte het aantal elementen in de array. 
 In dit experiment zal de invoergrootte variëren van 10 elementen tot en met 1000 elementen waarbij we telkens een sprong van 10 elementen maken.
 Dus bij iteratie 1 kijken we naar een array met 10 elementen, bij iteratie 2 naar een van 20 elementen, bij iteratie 3 naar een van 30 elementen enzovoort.
+De individuele elementen in deze array zijn floatingpoint getallen die willekeurig gekozen zijn en ieder getal in de 'range' heeft een gelijke kans om voor te komen in de array (uniforme verdeling).
 
 \section{Bevindingen plotten}
+
+\section{Bevindingen}
 
 \section{Theorie vs praktijk}
 
