@@ -1,6 +1,11 @@
+"""
+This file contains all the code related to the SORT1 experiment where we try to determine
+the time complexity of the Insertionsort algorithm.
+"""
+from utils import Counter, less, exchange
 import numpy as np
 import matplotlib.pyplot as plt 
-from utils import Counter, less, exchange
+
 
 def sort(my_list: list, counter: Counter):
     n = len(my_list)
@@ -10,6 +15,9 @@ def sort(my_list: list, counter: Counter):
             exchange(my_list, j, j - 1, counter) 
             j -= 1
 
+"""
+Plot our findings
+"""
 def plot_data(average_case: list, worst_case: list=None, best_case: list=None):
     fig, ax = plt.subplots(1, 2)
     # plotting the compares
