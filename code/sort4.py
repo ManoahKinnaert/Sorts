@@ -57,6 +57,25 @@ def plot_data(average_case: list, worst_case: list=None, best_case: list=None):
 
     exchanges.legend()
 
+def test_average_case(length: int, results: list, counter: Counter):
+    # repeat 'length' times to get a real idea of the average case
+    for _ in range(length):
+        sampl = list(np.random.uniform(low=0, high=length, size=(length,)))
+        print("Before: ", sampl)
+        sort(sampl, lo=0, hi=len(sampl - 1), counter=counter)
+        results.append((length, counter.compares, counter.exchanges))
+        counter.reset()
+        print("After: ", sampl)
+
+def test_worst_case(length: int, results: list, counter: Counter):
+    pass 
+
+def test_best_case(results, counter):
+    pass 
+
+def test_sorts():
+    pass 
+
 if __name__ == "__main__":
     counter = Counter()
     b = 10
