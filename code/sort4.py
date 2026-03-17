@@ -68,7 +68,12 @@ def test_average_case(length: int, results: list, counter: Counter):
         print("After: ", sampl)
 
 def test_worst_case(length: int, results: list, counter: Counter):
-    pass 
+    sampl = range(length)
+    print("Before: ", sampl)
+    sort(sampl, lo=0, hi=len(sampl - 1), counter=counter)
+    results.append((length, counter.compares, counter.exchanges))
+    counter.reset()
+    print("After: ", sampl)
 
 def test_best_case(results, counter):
     pass 
