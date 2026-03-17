@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 from utils import Counter, less, exchange
 
-# hoare partitioning
+# Hoare partitioning
 def partition_hoare(a: list, lo: int, hi: int, counter: Counter):
     i, j = lo, hi + 1
     v = a[lo]
@@ -25,9 +25,22 @@ def partition_hoare(a: list, lo: int, hi: int, counter: Counter):
     exchange(a, lo, j, counter)
     return j
 
-def sort(a: list, lo: int, hi: int, counter: Counter):
+# Lomuto partitioning
+def partition_lomuto(a: list, lo: int, hi: int, counter: Counter):
+    i = lo - 1
+    v = a[hi]
+    j = lo 
+    while j <= hi - 1:
+        if less(a[j], v, counter):
+            i += 1
+            exchange(a, i, j, counter)
+        j += 1
+    exchange(a, i + 1, hi, counter)
+    return i + 1
+
+def sort(a: list, lo: int, hi: int, counter: Counter, lomuto: bool=False):
     if (hi <= lo): return 
-    j = partition_hoare(a, lo, hi, counter)
+    j = partition_lomuto(a, lo, hi, counter) if lomuto else partition_hoare(a, lo, hi, counter)
     sort(a, lo, j - 1, counter)
     sort(a, j + 1, hi, counter)
 
