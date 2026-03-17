@@ -10,16 +10,13 @@ def partition_hoare(a: list, lo: int, hi: int, counter: Counter):
     i, j = lo, hi + 1
     v = a[lo]
     while True:
-
         i += 1
-        while less(a[i], v, counter):
+        while i < hi and less(a[i], v, counter):
             i += 1
-            if i == hi: break
-        j -= 1 
 
-        while less(v, a[j], counter): 
+        j -= 1
+        while j > lo and less(v, a[j], counter):
             j -= 1
-            if j == lo: break 
 
         if i >= j: break
         exchange(a, i, j, counter)
@@ -65,43 +62,63 @@ def plot_data(average_case: list, worst_case: list=None, best_case: list=None):
 """
 Test the average case for Quicksort.
 """
-def test_average_case(length: int, results: list, counter: Counter):
+def test_average_case(test_print: bool, length: int, results: list, counter: Counter):
     # repeat 'length' times to get a real idea of the average case
     for _ in range(length):
         sampl = list(np.random.uniform(low=0, high=length, size=(length,)))
-        print("Before: ", sampl)
-        sort(sampl, lo=0, hi=len(sampl - 1), counter=counter)
+        if test_print: print("Before: ", sampl)
+        sort(sampl, lo=0, hi=len(sampl) - 1, counter=counter)
         results.append((length, counter.compares, counter.exchanges))
         counter.reset()
-        print("After: ", sampl)
+        if test_print: print("After: ", sampl)
 
 """
 Worst case for Quick Sort is an array that is already sorted.
 """
-def test_worst_case(length: int, results: list, counter: Counter):
-    sampl = range(length)
-    print("Before: ", sampl)
-    sort(sampl, lo=0, hi=len(sampl - 1), counter=counter)
+def test_worst_case(test_print: bool, length: int, results: list, counter: Counter):
+    sampl = list(range(length))
+    if test_print: print("Before: ", sampl)
+    sort(sampl, lo=0, hi=len(sampl) - 1, counter=counter)
     results.append((length, counter.compares, counter.exchanges))
     counter.reset()
-    print("After: ", sampl)
+    if test_print: print("After: ", sampl)
+
+"""
+Generates a best case starting list for Quicksort.
+"""
+def best_case_list(start, end):
+    if start > end:
+        return []
+    mid = (start + end) // 2
+    return [mid] + best_case_list(start, mid - 1) + best_case_list(mid + 1, end)
 
 """
 Best case for Quicksort is an array where the pivot element is exactly in the middle (of the sorted array)
 """
-def test_best_case(length: int, results: list, counter: Counter):
-    pass 
+def test_best_case(test_print: bool, length: int, results: list, counter: Counter):
+    sampl = best_case_list(0, length - 1)
+    if test_print: print("Before: ", sampl)
+    sort(sampl, lo=0, hi=len(sampl) - 1, counter=counter)
+    results.append((length, counter.compares, counter.exchanges))
+    counter.reset()
+    if test_print: print("After: ", sampl)
 
 """
 Test sorting algorithm over multiple array / list sizes.
 """
-def test_sorts():
-    pass 
+def test_sorts(test_print: bool, counter: Counter):
+    best = []
+    average = []
+    worst = []
+    for length in range(10, 1000, 10):
+        test_best_case(test_print, length, best, counter)
+        test_average_case(test_print, length, average, counter)
+        test_worst_case(test_print, length, worst, counter)
+
+    return best, average, worst
 
 
 if __name__ == "__main__":
     counter = Counter()
-    b = 10
-    a = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
-    sort(a, 0, len(a) - 1, counter)
-    print(a)
+    best, average, worst = test_sorts(False, counter)
+    
