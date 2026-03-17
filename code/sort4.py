@@ -47,17 +47,23 @@ def sort(a: list, lo: int, hi: int, counter: Counter, lomuto: bool=False):
 """
 Plot our findings.
 """
-def plot_data(average_case: list, worst_case: list=None, best_case: list=None):
+def plot_data(average_case: list=None, worst_case: list=None, best_case: list=None):
     fig, ax = plt.subplots(1, 2)
     compares, exchanges = ax 
     # plot compares 
     compares.set_title("Compares")
+    compares.set_xlabel("N")
+    compares.set_ylabel("Count")
 
     compares.legend()
     # plot exchanges
     exchanges.set_title("Exchanges")
+    exchanges.set_xlabel("N")
+    exchanges.set_ylabel("Count")
 
     exchanges.legend()
+
+    plt.show()
 
 """
 Test the average case for Quicksort.
@@ -121,4 +127,3 @@ def test_sorts(test_print: bool, counter: Counter):
 if __name__ == "__main__":
     counter = Counter()
     best, average, worst = test_sorts(False, counter)
-    
