@@ -1,7 +1,9 @@
+"""
+This file contains all code concerning an experiment to determine the time complexity of the Quicksort algorithm.
+"""
+from utils import Counter, less, exchange
 import numpy as np
 import matplotlib.pyplot as plt 
-
-from utils import Counter, less, exchange
 
 # Hoare partitioning
 def partition_hoare(a: list, lo: int, hi: int, counter: Counter):
@@ -45,6 +47,9 @@ def sort(a: list, lo: int, hi: int, counter: Counter, lomuto: bool=False):
     sort(a, j + 1, hi, counter)
 
 
+"""
+Plot our findings.
+"""
 def plot_data(average_case: list, worst_case: list=None, best_case: list=None):
     fig, ax = plt.subplots(1, 2)
     compares, exchanges = ax 
@@ -57,6 +62,9 @@ def plot_data(average_case: list, worst_case: list=None, best_case: list=None):
 
     exchanges.legend()
 
+"""
+Test the average case for Quicksort.
+"""
 def test_average_case(length: int, results: list, counter: Counter):
     # repeat 'length' times to get a real idea of the average case
     for _ in range(length):
@@ -67,6 +75,9 @@ def test_average_case(length: int, results: list, counter: Counter):
         counter.reset()
         print("After: ", sampl)
 
+"""
+Worst case for Quick Sort is an array that is already sorted.
+"""
 def test_worst_case(length: int, results: list, counter: Counter):
     sampl = range(length)
     print("Before: ", sampl)
@@ -75,11 +86,18 @@ def test_worst_case(length: int, results: list, counter: Counter):
     counter.reset()
     print("After: ", sampl)
 
-def test_best_case(results, counter):
+"""
+Best case for Quicksort is an array where the pivot element is exactly in the middle (of the sorted array)
+"""
+def test_best_case(length: int, results: list, counter: Counter):
     pass 
 
+"""
+Test sorting algorithm over multiple array / list sizes.
+"""
 def test_sorts():
     pass 
+
 
 if __name__ == "__main__":
     counter = Counter()
