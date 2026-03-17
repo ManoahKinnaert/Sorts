@@ -43,6 +43,23 @@ def sort(a: list, lo: int, hi: int, counter: Counter, lomuto: bool=False):
     sort(a, lo, j - 1, counter)
     sort(a, j + 1, hi, counter)
 
+"""
+Plot the findings for the average case.
+"""
+def plot_average_case(average_case, compares, exchanges):
+    pass 
+
+"""
+Plot the findings for the best case.
+"""
+def plot_best_case(best_case, compares, exchanges):
+    pass 
+
+"""
+Plot the findings for the worst case.
+"""
+def plot_worst_case(worst_case, compares, exchanges):
+    pass 
 
 """
 Plot our findings.
@@ -54,14 +71,16 @@ def plot_data(average_case: list=None, worst_case: list=None, best_case: list=No
     compares.set_title("Compares")
     compares.set_xlabel("N")
     compares.set_ylabel("Count")
-
     compares.legend()
     # plot exchanges
     exchanges.set_title("Exchanges")
     exchanges.set_xlabel("N")
     exchanges.set_ylabel("Count")
-
     exchanges.legend()
+
+    if best_case is not None: plot_best_case(best, compares, exchanges)
+    if average_case is not None: plot_average_case(average, compares, exchanges)
+    if worst_case is not None: plot_worst_case(worst, compares, exchanges)
 
     plt.show()
 
