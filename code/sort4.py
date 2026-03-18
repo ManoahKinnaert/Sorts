@@ -53,20 +53,20 @@ def plot_findings(case, compares, exchanges, label, color):
 """
 Plot the findings for the average case.
 """
-def plot_average_case(average_case, compares, exchanges):
+def plot_average_case(average_case: list, compares, exchanges):
     plot_findings(average_case, compares, exchanges, "Measured Average", "orange")
 
 """
 Plot the findings for the best case.
 """
-def plot_best_case(best_case, compares, exchanges):
-    pass 
+def plot_best_case(best_case: list, compares, exchanges):
+    plot_findings(best_case, compares, exchanges, "Measured Best", "green")
 
 """
 Plot the findings for the worst case.
 """
-def plot_worst_case(worst_case, compares, exchanges):
-    pass 
+def plot_worst_case(worst_case: list, compares, exchanges):
+    plot_findings(worst_case, compares, exchanges, "Measured Worst", "red")
 
 """
 Plot our findings.
@@ -123,7 +123,7 @@ def test_worst_case(test_print: bool, length: int, results: list, counter: Count
 """
 Generates a best case starting list for Quicksort.
 """
-def best_case_list(start, end):
+def best_case_list(start: int, end):
     if start > end:
         return []
     mid = (start + end) // 2
@@ -158,4 +158,4 @@ def test_sorts(test_print: bool, counter: Counter):
 if __name__ == "__main__":
     counter = Counter()
     best, average, worst = test_sorts(False, counter)
-    plot_data(average_case=average)
+    plot_data(average_case=average, best_case=best, worst_case=worst)
