@@ -44,10 +44,17 @@ def sort(a: list, lo: int, hi: int, counter: Counter, lomuto: bool=False):
     sort(a, j + 1, hi, counter)
 
 """
+Helper for plotting findings.
+"""
+def plot_findings(case, compares, exchanges, label, color):
+    compares.plot([n[0] for n in case], [n[1] for n in case], color=color, label=label) 
+    exchanges.plot([n[0] for n in case], [n[2] for n in case], color=color, label=label)
+
+"""
 Plot the findings for the average case.
 """
 def plot_average_case(average_case, compares, exchanges):
-    pass 
+    plot_findings(average_case, compares, exchanges, "Measured Average", "orange")
 
 """
 Plot the findings for the best case.
@@ -67,35 +74,40 @@ Plot our findings.
 def plot_data(average_case: list=None, worst_case: list=None, best_case: list=None):
     fig, ax = plt.subplots(1, 2)
     compares, exchanges = ax 
-    # plot compares 
+    # compares 
     compares.set_title("Compares")
     compares.set_xlabel("N")
     compares.set_ylabel("Count")
-    compares.legend()
-    # plot exchanges
+    # exchanges
     exchanges.set_title("Exchanges")
     exchanges.set_xlabel("N")
     exchanges.set_ylabel("Count")
+    # plot the date
+    if best_case is not None: plot_best_case(best_case, compares, exchanges)
+    if average_case is not None: plot_average_case(average_case, compares, exchanges)
+    if worst_case is not None: plot_worst_case(worst_case, compares, exchanges)
+    # generate legend
+    compares.legend()
     exchanges.legend()
-
-    if best_case is not None: plot_best_case(best, compares, exchanges)
-    if average_case is not None: plot_average_case(average, compares, exchanges)
-    if worst_case is not None: plot_worst_case(worst, compares, exchanges)
-
+    # show the chart
     plt.show()
 
 """
 Test the average case for Quicksort.
 """
 def test_average_case(test_print: bool, length: int, results: list, counter: Counter):
+    total_compares = 0
+    total_exchanges = 0
     # repeat 'length' times to get a real idea of the average case
     for _ in range(length):
         sampl = list(np.random.uniform(low=0, high=length, size=(length,)))
         if test_print: print("Before: ", sampl)
         sort(sampl, lo=0, hi=len(sampl) - 1, counter=counter)
-        results.append((length, counter.compares, counter.exchanges))
+        total_compares += counter.compares
+        total_exchanges += counter.exchanges
         counter.reset()
         if test_print: print("After: ", sampl)
+    results.append((length, total_compares / length, total_exchanges / length))
 
 """
 Worst case for Quick Sort is an array that is already sorted.
@@ -146,3 +158,4 @@ def test_sorts(test_print: bool, counter: Counter):
 if __name__ == "__main__":
     counter = Counter()
     best, average, worst = test_sorts(False, counter)
+    plot_data(average_case=average)
