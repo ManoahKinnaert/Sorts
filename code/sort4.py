@@ -19,23 +19,22 @@ def plot_findings(case, compares, exchanges, label, color):
 Plot the findings for the average case.
 TODO: Include theoretical curve
 """
-def plot_average_case(average_case: list, compares, exchanges):
+def plot_average_case(average_case: list, compares, exchanges, theoretical=False):
     plot_findings(average_case, compares, exchanges, "Measured Average", "orange")
 
 """
 Plot the findings for the best case.
 TODO: Include theoretical curve
 """
-def plot_best_case(best_case: list, compares, exchanges):
+def plot_best_case(best_case: list, compares, exchanges, theoretical=False):
     plot_findings(best_case, compares, exchanges, "Measured Best", "green")
 
 """
 Plot the findings for the worst case.
-TODO: Include theoretical curve
 """
-def plot_worst_case(worst_case: list, compares, exchanges):
+def plot_worst_case(worst_case: list, compares, exchanges, theoretical=False):
     plot_findings(worst_case, compares, exchanges, "Measured Worst", "red")
-    #compares.plot([n[0] for n in worst_case], [(n[0] ** 2) / 2 for n in worst_case], color="red", label="Expected Worst", linestyle="dashdot")
+    if theoretical: compares.plot([n[0] for n in worst_case], [(n[0] ** 2) / 2 for n in worst_case], color="red", label="Expected Worst", linestyle="dashdot")
 
 """
 Plot our findings.
