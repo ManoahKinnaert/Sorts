@@ -71,7 +71,7 @@ def plot_data(average_case: list=None, worst_case: list=None, best_case: list=No
 """
 Test the average case for Quicksort.
 """
-def test_average_case(test_print: bool, length: int, results: list, counter: Counter):
+def test_average_case(length: int, results: list, counter: Counter, test_print: bool=False):
     total_compares = 0
     total_exchanges = 0
     # repeat 'length' times to get a real idea of the average case
@@ -88,7 +88,7 @@ def test_average_case(test_print: bool, length: int, results: list, counter: Cou
 """
 Worst case for Quick Sort is an array that is already sorted.
 """
-def test_worst_case(test_print: bool, length: int, results: list, counter: Counter):
+def test_worst_case(length: int, results: list, counter: Counter, test_print: bool=False):
     sampl = list(range(length))
     if test_print: print("Before: ", sampl)
     sort(sampl, lo=0, hi=len(sampl) - 1, counter=counter)
@@ -118,7 +118,7 @@ def best_case_list(n: int):
 """
 Best case for Quicksort is an array where the pivot element is exactly in the middle (of the sorted array)
 """
-def test_best_case(test_print: bool, length: int, results: list, counter: Counter):
+def test_best_case(length: int, results: list, counter: Counter, test_print: bool=False):
     sampl = best_case_list(length)
     if test_print: print("Before: ", sampl)
     sort(sampl, lo=0, hi=len(sampl) - 1, counter=counter)
@@ -134,9 +134,9 @@ def test_sorts(test_print: bool, counter: Counter):
     average = []
     worst = []
     for length in range(10, 1000, 10):
-        test_best_case(test_print, length, best, counter)
-        test_average_case(test_print, length, average, counter)
-        test_worst_case(test_print, length, worst, counter)
+        test_best_case(length, best, counter, test_print)
+        test_average_case(length, average, counter, test_print)
+        test_worst_case(length, worst, counter, test_print)
 
     return best, average, worst
 
