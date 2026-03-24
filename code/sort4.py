@@ -49,6 +49,7 @@ def plot_data(average_case: list=None, worst_case: list=None, best_case: list=No
     # set axis scaling for compares
     compares.set_yscale("log")
     compares.set_xscale("log")
+    compares.grid()
     # exchanges
     exchanges.set_title("Exchanges")
     exchanges.set_xlabel("N")
@@ -56,6 +57,7 @@ def plot_data(average_case: list=None, worst_case: list=None, best_case: list=No
     # set axis scaling for exchanges
     exchanges.set_yscale("log")
     exchanges.set_xscale("log")
+    exchanges.grid()
     # plot the date
     if best_case is not None: plot_best_case(best_case, compares, exchanges)
     if average_case is not None: plot_average_case(average_case, compares, exchanges)
