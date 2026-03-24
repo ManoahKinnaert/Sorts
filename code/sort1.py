@@ -2,18 +2,11 @@
 This file contains all the code related to the SORT1 experiment where we try to determine
 the time complexity of the Insertionsort algorithm.
 """
-from utils import Counter, less, exchange
+from sorting.utils import Counter
+from sorting.insertion import sort
+
 import numpy as np
 import matplotlib.pyplot as plt 
-
-
-def sort(my_list: list, counter: Counter):
-    n = len(my_list)
-    for i in range(1, n):
-        j = i
-        while j > 0 and less(my_list[j], my_list[j - 1], counter):
-            exchange(my_list, j, j - 1, counter) 
-            j -= 1
 
 """
 Plot our findings
