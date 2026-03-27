@@ -142,7 +142,10 @@ def test_sorts(test_print: bool, counter: Counter):
     return best, average, worst
 
 
-if __name__ == "__main__":
+def test_main():
     counter = Counter()
     best, average, worst = test_sorts(False, counter)
     plot_data(average_case=average, best_case=best, worst_case=worst, include_theoretical=True)
+
+if __name__ == "__main__":
+    test_main()

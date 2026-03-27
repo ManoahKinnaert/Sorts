@@ -47,7 +47,7 @@ def plot_data(average_case: list, worst_case: list=None, best_case: list=None):
 
     plt.show()
 
-if __name__ == "__main__":
+def test_main():
     counter = Counter()
     results_average_case = []
     results_worst_case = []
@@ -81,3 +81,6 @@ if __name__ == "__main__":
         counter.reset()
     
     plot_data(results_average_case, results_worst_case, results_best_case)
+
+if __name__ == "__main__":
+    test_main()
