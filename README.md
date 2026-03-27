@@ -1,5 +1,5 @@
 # SORTS
-If you haven't got things sorted out yet... wel this is you chance.
+If you haven't got things sorted out yet... wel this is your chance.
 This repo contains some experiments regarding sorting algorithms. These experiments attempt to measure 
 the amount of compares and exchanges with regard to the input size given to the sorting algorithm (Insertion sort or Quicksort).
 
