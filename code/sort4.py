@@ -6,7 +6,7 @@ from sorting.quick import sort
 
 import numpy as np
 import matplotlib.pyplot as plt 
-
+import math
 
 """
 Helper for plotting findings.
@@ -17,17 +17,17 @@ def plot_findings(case, compares, exchanges, label, color):
 
 """
 Plot the findings for the average case.
-TODO: Include theoretical curve
 """
 def plot_average_case(average_case: list, compares, exchanges, theoretical=False):
     plot_findings(average_case, compares, exchanges, "Measured Average", "orange")
+    if theoretical: compares.plot([n[0] for n in average_case], [1.39 * n[0] * math.log2(n[0]) for n in average_case], label="Expected Average", linestyle="dashdot", color="orange")
 
 """
 Plot the findings for the best case.
-TODO: Include theoretical curve
 """
 def plot_best_case(best_case: list, compares, exchanges, theoretical=False):
     plot_findings(best_case, compares, exchanges, "Measured Best", "green")
+    if theoretical: compares.plot([n[0] for n in best_case], [n[0] * math.log2(n[0]) for n in best_case], label="Expected Best", linestyle="dashdot", color="green")
 
 """
 Plot the findings for the worst case.
@@ -39,7 +39,7 @@ def plot_worst_case(worst_case: list, compares, exchanges, theoretical=False):
 """
 Plot our findings.
 """
-def plot_data(average_case: list=None, worst_case: list=None, best_case: list=None):
+def plot_data(average_case: list=None, worst_case: list=None, best_case: list=None, include_theoretical=False):
     fig, ax = plt.subplots(1, 2)
     compares, exchanges = ax 
     # compares 
@@ -58,10 +58,10 @@ def plot_data(average_case: list=None, worst_case: list=None, best_case: list=No
     exchanges.set_yscale("log")
     exchanges.set_xscale("log")
     exchanges.grid()
-    # plot the date
-    if best_case is not None: plot_best_case(best_case, compares, exchanges)
-    if average_case is not None: plot_average_case(average_case, compares, exchanges)
-    if worst_case is not None: plot_worst_case(worst_case, compares, exchanges)
+    # plot the data
+    if best_case is not None: plot_best_case(best_case, compares, exchanges, include_theoretical)
+    if average_case is not None: plot_average_case(average_case, compares, exchanges, include_theoretical)
+    if worst_case is not None: plot_worst_case(worst_case, compares, exchanges, include_theoretical)
     # generate legend
     compares.legend()
     exchanges.legend()
@@ -128,6 +128,7 @@ def test_best_case(length: int, results: list, counter: Counter, test_print: boo
 
 """
 Test sorting algorithm over multiple array / list sizes.
+We make use of the Hoare partitioning scheme.
 """
 def test_sorts(test_print: bool, counter: Counter):
     best = []
@@ -144,4 +145,4 @@ def test_sorts(test_print: bool, counter: Counter):
 if __name__ == "__main__":
     counter = Counter()
     best, average, worst = test_sorts(False, counter)
-    plot_data(average_case=average, best_case=best, worst_case=worst)
+    plot_data(average_case=average, best_case=best, worst_case=worst, include_theoretical=True)
