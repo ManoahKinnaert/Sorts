@@ -362,3 +362,4 @@ Temporary Items
 # End of https://www.toptal.com/developers/gitignore/api/latex,linux,macos
 venv
 *__pycache__
+verslagen
