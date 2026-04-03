@@ -24,3 +24,8 @@ pip install -r requirements.txt
 ```bash
 python code
 ```
+
+5) To run a demo to see the sorting algorithms in action:
+```bash
+python demo
+```
