@@ -33,6 +33,14 @@ ul li h1 {
   font-style: italic;
 }
 
+ul li p {
+  display: block;
+  color: orange;  
+  font-style: italic;
+
+  padding-top: 25px;
+}
+
 ul li a:hover {
   background-color: #fca10f;
 }
