@@ -363,3 +363,4 @@ Temporary Items
 venv
 *__pycache__
 verslagen
+.idea
